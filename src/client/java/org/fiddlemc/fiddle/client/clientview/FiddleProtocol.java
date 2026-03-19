@@ -1,8 +1,11 @@
 package org.fiddlemc.fiddle.client.clientview;
 
 import it.unimi.dsi.fastutil.Pair;
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
+import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,7 +19,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.fiddlemc.fiddle.client.moredatadriven.TemporaryRegistryModifiers;
 import org.fiddlemc.fiddle.impl.branding.FiddleNamespace;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -90,6 +92,49 @@ public final class FiddleProtocol {
             System.out.println("Added custom content " + FiddleProtocol.getState());
             changeState(ClientModState.RECEIVED_CUSTOM_CONTENT, ClientModState.ADDED_CUSTOM_CONTENT);
         });
+        ClientLoginConnectionEvents.INIT.register((handler, client) -> {
+            FiddleProtocol.changeState(ClientModState.IDLE, ClientModState.HANDSHAKE_STARTED);
+        });
+        ClientConfigurationConnectionEvents.INIT.register((handler, client) -> {
+            while (true) {
+                if (FiddleProtocol.getState() == ClientModState.CLIENT_MOD_DETECTED) {
+                    return;
+                }
+                if (FiddleProtocol.tryChangeState(ClientModState.HANDSHAKE_STARTED, ClientModState.CLIENT_MOD_NOT_DETECTED)) {
+                    return;
+                }
+                Thread.onSpinWait();
+            }
+        });
+        ClientLoginConnectionEvents.DISCONNECT.register((handler, client) -> {
+            onDisconnect();
+        });
+        ClientConfigurationConnectionEvents.DISCONNECT.register((handler, client) -> {
+            onDisconnect();
+        });
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            onDisconnect();
+        });
+    }
+
+    private static void onDisconnect() {
+        // Clear custom content, if present
+        while (true) {
+            if (FiddleProtocol.getState() == ClientModState.ADDED_CUSTOM_CONTENT) {
+                TemporaryRegistryModifiers.removeCustomContent();
+                System.out.println("Post-remove: " + FiddleProtocol.getState());
+                FiddleProtocol.changeState(ClientModState.ADDED_CUSTOM_CONTENT, ClientModState.REMOVED_CUSTOM_CONTENT);
+                break;
+            }
+            if (FiddleProtocol.tryChangeState(Set.of(ClientModState.IDLE, ClientModState.HANDSHAKE_STARTED, ClientModState.CLIENT_MOD_DETECTED, ClientModState.CLIENT_MOD_NOT_DETECTED), ClientModState.REMOVED_CUSTOM_CONTENT)) {
+                break;
+            }
+            Thread.onSpinWait();
+        }
+        System.out.println("Resetting to idle: " + FiddleProtocol.getState());
+        // Reset to idle
+        FiddleProtocol.changeState(ClientModState.REMOVED_CUSTOM_CONTENT, ClientModState.IDLE);
+        System.out.println("Reset to idle: " + FiddleProtocol.getState());
     }
 
     public static boolean tryChangeState(ClientModState oldState, ClientModState newState) {

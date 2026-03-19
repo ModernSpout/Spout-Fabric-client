@@ -3,10 +3,7 @@
 	"package": "org.fiddlemc.fiddle.client.clientview.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-    "AcceptAllResourcePacksMixin",
-    "ResetOnDisconnectMixin",
-    "UpdateStateOnStartLoginMixin",
-    "UpdateStateOnStartConfigureMixin"
+    "AcceptAllResourcePacksMixin"
   ],
 	"injectors": {
 		"defaultRequire": 1
