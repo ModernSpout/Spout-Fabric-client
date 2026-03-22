@@ -147,7 +147,7 @@ public abstract class ReplaceLoadingOverlayMixin {
             int r2 = (int) (e2 * (double) 0.5F);
             int k2 = k * 4 / 5;
             int l2 = l * 4 / 5;
-            guiGraphics.blit(renderPipeline, texture, n2 - k2 / 2, p2 - l2, 0f, 0f, k2, l2 * 2, 320, 320, 320, 320, q);
+            guiGraphics.blit(renderPipeline, texture, n2 - k2 / 2, (p2 - l2) * 17 / 20, 0f, 0f, k2, l2 * 2, 320, 320, 320, 320, q);
         } else {
             guiGraphics.blit(renderPipeline, texture, i, j, f, g, k, l, m, n, o, p, q);
         }
