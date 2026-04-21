@@ -16,17 +16,13 @@
 
 ## Introduction
 
-Spout lets servers add new blocks and items server-side. When players join, the new blocks and items will be sent to their client and also added client-side.
+The Spout client mod is an automatic modloader for Spout servers: when you join a multiplayer server, the server's modded blocks and items will be installed automatically.
 
-This Fabric client mod adds native Fabric support for Spout. Server-side custom blocks and items will be added to your client when joining a server, and removed again when leaving.
-
-&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Supports for non-vanilla block shapes, like vertical slabs
+&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Supports non-vanilla block shapes, like vertical slabs
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Perfectly match server-side properties, like breaking speed and light level
+&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Supports all properties, such as breaking speed, light level and textures
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;No limit on number of custom blocks and items per server
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Auto-completion in commands, like <code>/give</code>
+&nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Auto-completion in commands, such as <code>/give</code>
 
 ## Installation
 
