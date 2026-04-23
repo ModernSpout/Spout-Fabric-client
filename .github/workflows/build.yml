@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Spout client mod JAR
-          path: build/libs/spout-[0-9.A-Z-]+.jar
+          path: build/libs/*.jar
           archive: false
