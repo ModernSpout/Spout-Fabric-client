@@ -3,7 +3,6 @@
   "package": "spout.client.fabric.ui.toast.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "HideUnsecureServerWarningToastMixin",
     "IgnoreResourcePackDownloadProgressMixin"
   ],
   "injectors": {
