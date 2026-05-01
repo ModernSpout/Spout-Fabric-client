@@ -5,14 +5,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import spout.client.fabric.moredatadriven.minecraft.type.StairBlockCodec;
+import spout.common.moredatadriven.minecraft.type.BlockCodecs;
 
 /**
  * A union of {@link StairBlock} and {@link HalfTransparentBlock}.
  */
 public class HalfTransparentStairBlock extends StairBlock {
 
-    public static final MapCodec<HalfTransparentStairBlock> CODEC = StairBlockCodec.simpleStairCodec(HalfTransparentStairBlock::new);
+    public static final MapCodec<HalfTransparentStairBlock> CODEC = BlockCodecs.stairCodec(HalfTransparentStairBlock::new);
 
     protected HalfTransparentStairBlock(BlockState baseState, Properties properties) {
         super(baseState, properties);

@@ -9,14 +9,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import spout.client.fabric.moredatadriven.minecraft.type.StairBlockCodec;
+import spout.common.moredatadriven.minecraft.type.BlockCodecs;
 
 /**
  * A union of {@link StairBlock} and {@link TransparentBlock}.
  */
 public class TransparentStairBlock extends HalfTransparentStairBlock {
 
-    public static final MapCodec<TransparentStairBlock> CODEC = StairBlockCodec.simpleStairCodec(TransparentStairBlock::new);
+    public static final MapCodec<TransparentStairBlock> CODEC = BlockCodecs.stairCodec(TransparentStairBlock::new);
 
     protected TransparentStairBlock(BlockState baseState, Properties properties) {
         super(baseState, properties);

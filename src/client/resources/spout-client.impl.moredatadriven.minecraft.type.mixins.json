@@ -15,7 +15,8 @@
     "PropertiesExtensionsMixin",
     "ReplaceBlockBehaviourPropertiesCodecMixin",
     "StairBlockAccessor",
-    "StairBlockMixin"
+    "StairBlockMixin",
+    "WeatheringCopperStairBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

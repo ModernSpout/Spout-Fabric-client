@@ -6,13 +6,9 @@ import net.minecraft.core.DefaultedMappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import spout.common.moredatadriven.minecraft.type.BlockStateStringConversion;
-import spout.client.fabric.moredatadriven.minecraft.type.BaseStateStringBlock;
+import spout.common.moredatadriven.minecraft.type.ApplyLazyBlockValues;
 import spout.client.fabric.moredatadriven.minecraft.type.PropertiesExtensions;
 import spout.client.fabric.moredatadriven.minecraft.type.mixin.ItemBlockRenderTypesAccessor;
-import spout.client.fabric.moredatadriven.minecraft.type.mixin.StairBlockAccessor;
 import org.jspecify.annotations.Nullable;
 import java.util.List;
 
@@ -29,19 +25,8 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
     public void add(List<Pair<ResourceKey<Block>, Block>> resources) {
         super.add(resources);
         if (!resources.isEmpty()) {
-            // Set base for stairs
-            for (Pair<ResourceKey<Block>, Block> resource : resources) {
-                if (resource.right() instanceof StairBlock stairBlock) {
-                    String baseStateString = ((BaseStateStringBlock) stairBlock).spout$getBaseStateString();
-                    BlockState baseState = BlockStateStringConversion.blockStateFromString(baseStateString);
-                    StairBlockAccessor accessor = (StairBlockAccessor) stairBlock;
-                    accessor.setBaseState(baseState);
-                    accessor.setBase(baseState.getBlock());
-                }
-            }
-            // Add render types
-            for (Pair<ResourceKey<Block>, Block> resource : resources) {
-            }
+            // Apply lazy values
+            ApplyLazyBlockValues.apply(resources.stream().map(Pair::right));
         }
     }
 
