@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import spout.common.moredatadriven.minecraft.type.BlockCodecs;
 
 @Mixin(WeatheringCopperStairBlock.class)
-public class WeatheringCopperStairBlockMixin {
+public class LazyBaseStateWeatheringCopperStairBlockMixin {
 
     @Shadow
     @Final

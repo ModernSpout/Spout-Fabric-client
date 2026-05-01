@@ -3,6 +3,7 @@
   "package": "spout.client.fabric.moredatadriven.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BlockEntityTypeDataDrivenValidBlocksMixin",
     "HolderSetNamedAccessor",
     "MappedRegistryAccessor"
   ],

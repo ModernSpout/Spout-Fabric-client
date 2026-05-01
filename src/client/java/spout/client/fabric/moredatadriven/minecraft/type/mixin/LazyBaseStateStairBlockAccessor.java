@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(StairBlock.class)
-public interface StairBlockAccessor {
+public interface LazyBaseStateStairBlockAccessor {
 
     @Accessor("base")
     void setBase(Block base);

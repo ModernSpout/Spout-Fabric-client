@@ -14,9 +14,11 @@
     "ItemPropertiesAccessor",
     "PropertiesExtensionsMixin",
     "ReplaceBlockBehaviourPropertiesCodecMixin",
-    "StairBlockAccessor",
-    "StairBlockMixin",
-    "WeatheringCopperStairBlockMixin"
+    "LazyBaseStateStairBlockAccessor",
+    "LazyBaseStateStairBlockMixin",
+    "LazyBaseStateWeatheringCopperStairBlockMixin",
+    "LazyTurnsIntoBrushableBlockAccessor",
+    "LazyTurnsIntoBrushableBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
