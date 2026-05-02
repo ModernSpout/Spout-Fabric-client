@@ -6,6 +6,7 @@ import net.minecraft.core.DefaultedMappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import spout.common.moredatadriven.minecraft.BlockEntityAlternativeValidation;
 import spout.common.moredatadriven.minecraft.type.ApplyLazyBlockValues;
 import spout.client.fabric.moredatadriven.minecraft.type.PropertiesExtensions;
 import spout.client.fabric.moredatadriven.minecraft.type.mixin.ItemBlockRenderTypesAccessor;
@@ -27,6 +28,8 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
         if (!resources.isEmpty()) {
             // Apply lazy values
             ApplyLazyBlockValues.apply(resources.stream().map(Pair::right));
+            // Update alternatively valid block entities
+            BlockEntityAlternativeValidation.update(resources.stream().map(Pair::right));
         }
     }
 
@@ -38,6 +41,12 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
         if (chunkSectionLayer != null) {
             ItemBlockRenderTypesAccessor.getTypeByBlock().put(resource, chunkSectionLayer);
         }
+    }
+
+    @Override
+    public void remove() {
+        BlockEntityAlternativeValidation.clear();
+        super.remove();
     }
 
     @Override
